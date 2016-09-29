@@ -39,4 +39,5 @@ void main(void)
 		cout << array[i] << " ";
 	}
 	cout << endl;
+	getchar();
 }
