@@ -7,7 +7,7 @@ void main(void)
 	//음수 시프트 계산
 	int input = -64;
 	int output = input << 3;
-	
+
 	cout << output << endl;
 
 	cout << endl;
@@ -15,7 +15,7 @@ void main(void)
 	//Array 버블 정렬
 	int array[10];
 
-	for (int i = 0; i < 10; i++)	{
+	for (int i = 0; i < 10; i++) {
 		array[i] = rand() % 100;
 		cout << array[i] << " ";
 	}
