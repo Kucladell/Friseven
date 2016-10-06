@@ -11,9 +11,9 @@ struct ScoreStruct
 	bool isMajor; //전공인가
 };
 
-int printMenu()
+string printMenu()
 {
-	int selectedMenuVal;
+	string selectedMenuVal;
 	cout << "-----------------------------------------------" << endl;
 	cout << "원하는 명령어를 입력하십시오" << endl;
 	cout << "1. 성적 입력" << endl;
@@ -139,12 +139,17 @@ int main(void)
 {
 	ScoreStruct subjects[MAX_SUBJECT_NUMBER];
 	int subjectCount = 0;
-	int command;
+	string command;
 	bool exit = false;
 	while (!exit)
 	{
 		command = printMenu();
-		switch (command)
+		int menuVal = atoi(command.c_str());
+		if (menuVal < 0)
+		{
+			menuVal = 0;
+		}
+		switch (menuVal)
 		{
 		case 1:
 		{
