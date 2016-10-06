@@ -12,9 +12,9 @@ struct Score
 	bool is_major;
 };
 
-int menu()
+string menu()
 {
-	int selected;
+	string selected;
 
 	cout << "--메 뉴------------------------------" << endl;
 	cout << "명령에 해당하는 숫자를 입력하십시오." << endl;
@@ -24,30 +24,8 @@ int menu()
 	cout << "4. 종료" << endl;
 	cout << "-------------------------------------" << endl;
 	cout << ">";
-
 	cin >> selected;
 
-	if (selected != 1 && selected != 2 && selected != 3 && selected != 4)
-	{
-		while (true)
-		{
-			cout << "--메 뉴------------------------------" << endl;
-			cout << "명령에 해당하는 숫자를 입력하십시오." << endl;
-			cout << "1. 성적 입력" << endl;
-			cout << "2. 입력된 자료 확인" << endl;
-			cout << "3. 계산결과 출력" << endl;
-			cout << "4. 종료" << endl;
-			cout << "-------------------------------------" << endl;
-			cout << ">";
-
-			cin >> selected;
-
-			if (selected == 1 || selected == 2 || selected == 3 || selected == 4)
-			{
-				break;
-			}
-		}
-	}
 	return selected;
 }
 
@@ -293,14 +271,19 @@ int main(void) //QUESTION 왜 void가 아닌가
 {
 	Score data[MAX_SUBJECT_NUMBER];
 	int data_count = 0;
-	int command;
+	string command;
 	bool exit = false;
 	//QUESTION 변수명은 일부러 다르게 설정한 것인가
 
 	while (!exit)
 	{
 		command = menu();
-		switch (command)
+		int command_int = atoi(command.c_str());
+		if (command_int < 0)
+		{
+			command_int = 0;
+		}
+		switch (command_int)
 		{
 		case 1:
 		{
