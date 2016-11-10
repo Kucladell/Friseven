@@ -13,7 +13,7 @@ public:
 	LinkedList();
 	~LinkedList();
 
-	void AddBack(Node* value); //맨 뒤에 노드를 더함 
+	void AddBack(int value); //맨 뒤에 노드를 더함 
 	void RemoveValue(int value); //값이 있는 노드를 지운다
 	bool Find(int value);//해당 값이 들어있는지 찾는다
 	void Print(); //내부값을 순서대로 출력한다
