@@ -10,4 +10,12 @@ LinkedList::~LinkedList()
 {
 	Clear();
 }
+void LinkedList::AddBack(Node* value)
+{
+	
+	Node added;
+	added.value = value;
+	added.next* = nullptr;
+}
+
 
