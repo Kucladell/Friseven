@@ -1,12 +1,10 @@
 #include "LinkedList.h"
 #include <iostream>
-using namespace std;
 
 LinkedList::LinkedList()
 {
 	head = nullptr;
 	count = 0;
-
 }
 LinkedList::~LinkedList()
 {
@@ -43,14 +41,23 @@ void LinkedList::RemoveValue(int value)
 {
 	if (LinkedList::Find(value) == false)
 	{
-		cout << "해당 값이 존재하지 않습니다." << endl;
+		std::cout << "해당 값이 존재하지 않습니다." << std::endl;
 	}
 	else
 	{
 		Node* skimNode = head;
+		Node* nextNode;
 
 		while (skimNode->next != NULL)
 		{
+			nextNode = skimNode->next;
+			if (nextNode->value == value)
+			{
+				skimNode->next = nextNode->next;
+				nextNode->value = NULL;
+				nextNode->next = NULL;
+				break;
+			}
 			skimNode = skimNode->next;
 		}
 		skimNode->next = NULL;
@@ -64,7 +71,8 @@ bool LinkedList::Find(int value)
 
 	while (skimNode->next != NULL)
 	{
-		if (skimNode->value = value) {
+		if (skimNode->value == value)
+		{
 			return true;
 			break;
 		}
@@ -79,7 +87,7 @@ void LinkedList::Print()
 
 	while (skimNode->next != NULL)
 	{
-		cout << skimNode->value << endl;
+		std::cout << skimNode->value << std::endl;
 		skimNode = skimNode->next;
 	}
 }
@@ -95,8 +103,10 @@ void LinkedList::Clear()
 		skimNode = skimNode->next;
 		delNode->value = NULL;
 		delNode->next = NULL;
+		delete[] delNode;
 	}
 	skimNode->value = NULL;
+	delete[] skimNode;
 	count = 0;
 }
 
