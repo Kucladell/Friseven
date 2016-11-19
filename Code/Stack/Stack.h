@@ -1,5 +1,6 @@
 #pragma once
 #include "..\LinkedList\LinkedList.h"
+
 class ListStack
 {
 public: 

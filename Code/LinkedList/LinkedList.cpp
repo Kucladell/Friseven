@@ -65,6 +65,24 @@ void LinkedList::RemoveValue(int value)
 	}
 }
 
+void LinkedList::RemoveLast()
+{
+	Node* skimNode = head;
+	Node* nextNode;
+
+	while (skimNode->next != NULL)
+	{
+		nextNode = skimNode->next;
+		if (nextNode->next == NULL)
+		{
+			nextNode->value = NULL;
+			nextNode->next = NULL;
+			skimNode->next = NULL;
+		}
+		skimNode = skimNode->next;
+	}
+}
+
 bool LinkedList::Find(int value)
 {
 	Node* skimNode = head;
@@ -81,7 +99,39 @@ bool LinkedList::Find(int value)
 	return false;
 }
 
-void LinkedList::Print()
+void LinkedList::Print(int value)
+{
+	if (LinkedList::Find(value) == false)
+	{
+		std::cout << "해당 값이 존재하지 않습니다." << std::endl;
+	}
+	else
+	{
+		Node* skimNode = head;
+
+		while (skimNode->next != NULL)
+		{
+			if (skimNode->value == value)
+			{
+				std::cout << skimNode->value << std::endl;
+				break;
+			}
+		}
+	}
+}
+
+void LinkedList::PrintLast()
+{
+	Node* skimNode = head;
+
+	while (skimNode->next != NULL)
+	{
+		skimNode = skimNode->next;
+	}
+	std::cout << skimNode->value << std::endl;
+}
+
+void LinkedList::PrintAll()
 {
 	Node* skimNode = head;
 
