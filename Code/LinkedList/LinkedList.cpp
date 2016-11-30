@@ -9,6 +9,10 @@ LinkedList::LinkedList()
 LinkedList::~LinkedList()
 {
 	Clear();
+
+	//수정 코드 시작
+	removeAll();
+	//수정 코드 끝
 }
 
 void LinkedList::AddBack(int value)
@@ -172,5 +176,16 @@ bool LinkedList::Empty()
 	}
 }
 
+//수정 코드 시작
 
+void LinkedList::add(int value, int index)
+{
+	Node* addNode = new Node;
+	Node* scanNode;
+
+	if (head == NULL)
+	{
+
+	}
+}
 
