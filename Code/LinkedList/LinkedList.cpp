@@ -6,165 +6,258 @@ LinkedList::LinkedList()
 	head = nullptr;
 	count = 0;
 }
+
 LinkedList::~LinkedList()
 {
-	Clear();
-
-	//수정 코드 시작
-	removeAll();
-	//수정 코드 끝
+	LinkedList::removeAll();
 }
 
-void LinkedList::AddBack(int value)
+void LinkedList::add(int value, int index)
 {
-	Node* newNode = new Node;
-	Node* skimNode;
-
-	if (head == NULL)
+	if (index > length())
 	{
-		newNode->value = value;
-		newNode->next = NULL;
-		head = newNode;
+		std::cout << "잘못된 인덱스값입니다." << std::endl;
+	}
+	else if (index < 0)
+	{
+		std::cout << "잘못된 인덱스값입니다." << std::endl;
+	}
+	else if (head == NULL && index != 0)
+	{
+		std::cout << "잘못된 인덱스값입니다." << std::endl;
 	}
 	else
 	{
-		skimNode = head;
-		while (skimNode->next != NULL)
-		{
-			skimNode = skimNode->next;
-		}
-		newNode->value = value;
-		newNode->next = NULL;
-		skimNode->next = newNode;
-	}
-	count++;
+		Node* addNode = new Node;
+		Node* scanNode;
 
+		if (head == NULL)
+		{
+			addNode->value = value;
+			addNode->next = NULL;
+			head = addNode;
+		}
+		else
+		{
+			if (index == 0)
+			{
+				addNode->value = value;
+				addNode->next = head;
+				head = addNode;
+			}
+			else if (index == length())
+			{
+				scanNode = head;
+				while (scanNode->next != NULL)
+				{
+					scanNode = scanNode->next;
+				}
+				addNode->value = value;
+				addNode->next = NULL;
+				scanNode->next = addNode;
+			}
+			else
+			{
+				scanNode = head;
+				for (int i = 0; i < index - 1; i++)
+				{
+					scanNode = scanNode->next;
+				}
+				addNode->value = value;
+				addNode->next = scanNode->next;
+				scanNode->next = addNode;
+			}
+		}
+
+		count++;
+	}
+	
 }
 
-void LinkedList::RemoveValue(int value)
+void LinkedList::addFirst(int value)
 {
-	if (LinkedList::Find(value) == false)
+	LinkedList::add(value, 0);
+}
+
+void LinkedList::addLast(int value)
+{
+	LinkedList::add(value, length());
+}
+
+void LinkedList::remove(int value)
+{
+	if (LinkedList::find(value) == false)
 	{
 		std::cout << "해당 값이 존재하지 않습니다." << std::endl;
 	}
 	else
 	{
-		Node* skimNode = head;
+		Node* scanNode = head;
 		Node* nextNode;
 
-		while (skimNode->next != NULL)
+		while (scanNode->next != NULL)
 		{
-			nextNode = skimNode->next;
+			nextNode = scanNode->next;
 			if (nextNode->value == value)
 			{
-				skimNode->next = nextNode->next;
-				nextNode->value = NULL;
-				nextNode->next = NULL;
+				scanNode->next = nextNode->next;
+				delete nextNode;
 				break;
 			}
-			skimNode = skimNode->next;
+			scanNode = scanNode->next;
 		}
-		skimNode->next = NULL;
+
 		count--;
 	}
 }
 
-void LinkedList::RemoveLast()
+void LinkedList::removeFirst()
 {
-	Node* skimNode = head;
-	Node* nextNode;
+	Node* scanNode = head;
 
-	while (skimNode->next != NULL)
-	{
-		nextNode = skimNode->next;
-		if (nextNode->next == NULL)
-		{
-			nextNode->value = NULL;
-			nextNode->next = NULL;
-			skimNode->next = NULL;
-		}
-		skimNode = skimNode->next;
-	}
+	head = scanNode->next;
+	delete scanNode;
+
+	count--;
 }
 
-bool LinkedList::Find(int value)
+void LinkedList::removeLast()
 {
-	Node* skimNode = head;
+	Node* scanNode = head;
+	Node* prevNode;
 
-	while (skimNode->next != NULL)
+	while (scanNode->next != NULL)
 	{
-		if (skimNode->value == value)
+		prevNode = scanNode;
+		scanNode = scanNode->next;
+	}
+	prevNode->next = NULL;
+	delete scanNode;
+
+	count--;
+}
+
+void LinkedList::removeAll()
+{
+	Node* scanNode = head;
+	Node* prevNode;
+
+	while (scanNode->next != NULL)
+	{
+		prevNode = scanNode;
+		scanNode = scanNode->next;
+		delete prevNode;
+	}
+	delete scanNode;
+	count == 0;
+}
+
+bool LinkedList::find(int value)
+{
+	Node* scanNode = head;
+
+	while (scanNode->next != NULL)
+	{
+		if (scanNode->value == value)
 		{
 			return true;
-			break;
 		}
-		skimNode = skimNode->next;
+		scanNode = scanNode->next;
 	}
 	return false;
 }
 
-void LinkedList::Print(int value)
+int LinkedList::findIndex(int value)
 {
-	if (LinkedList::Find(value) == false)
+	if (LinkedList::find(value) == false)
 	{
 		std::cout << "해당 값이 존재하지 않습니다." << std::endl;
+		return -1;
 	}
 	else
 	{
-		Node* skimNode = head;
+		Node* scanNode = head;
 
-		while (skimNode->next != NULL)
+		for (int i = 0; i < length(); i++)
 		{
-			if (skimNode->value == value)
+			if (scanNode->value == value)
 			{
-				std::cout << skimNode->value << std::endl;
-				break;
+				return i;
 			}
+			scanNode = scanNode->next;
 		}
 	}
 }
 
-void LinkedList::PrintLast()
+int LinkedList::print(int index)
 {
-	Node* skimNode = head;
-
-	while (skimNode->next != NULL)
+	if (index +1 > LinkedList::length())
 	{
-		skimNode = skimNode->next;
+		std::cout << "잘못된 인덱스값입니다." << std::endl;
+		return -1;
 	}
-	std::cout << skimNode->value << std::endl;
+	else if (index < 0)
+	{
+		std::cout << "잘못된 인덱스값입니다." << std::endl;
+		return -1;
+	}
+	else if (head == NULL)
+	{
+		std::cout << "잘못된 대상입니다." << std::endl;
+	}
+	else
+	{
+		Node* scanNode = head;
+
+		for (int i = 0; i < length(); i++)
+		{
+			if (i == index)
+			{
+				return scanNode->value;
+			}
+			scanNode = scanNode->next;
+		}
+	}
 }
 
-void LinkedList::PrintAll()
+int LinkedList::printFirst()
 {
-	Node* skimNode = head;
+	return LinkedList::print(0);
+}
 
-	while (skimNode->next != NULL)
+int LinkedList::printLast()
+{
+	return LinkedList::print(LinkedList::length());
+}
+
+int LinkedList::printValue(int value)
+{
+	return LinkedList::print(LinkedList::findIndex(value));
+}
+void LinkedList::printAll()
+{
+	if (head == NULL)
 	{
-		std::cout << skimNode->value << std::endl;
-		skimNode = skimNode->next;
+		std::cout << "잘못된 대상입니다." << std::endl;
+	}
+	else
+	{
+		Node* scanNode = head;
+
+		while(scanNode->next != NULL)
+		{
+			std::cout << scanNode->value << std::endl;
+			scanNode = scanNode->next;
+		}
 	}
 }
 
-void LinkedList::Clear()
+int LinkedList::length()
 {
-	Node* delNode;
-	Node* skimNode = head;
-
-	while (skimNode->next != NULL)
-	{
-		delNode = skimNode;
-		skimNode = skimNode->next;
-		delNode->value = NULL;
-		delNode->next = NULL;
-		delete[] delNode;
-	}
-	skimNode->value = NULL;
-	delete[] skimNode;
-	count = 0;
+	return count;
 }
 
-bool LinkedList::Empty()
+bool LinkedList::isEmpty()
 {
 	if (head == NULL)
 	{
@@ -173,19 +266,6 @@ bool LinkedList::Empty()
 	else
 	{
 		return false;
-	}
-}
-
-//수정 코드 시작
-
-void LinkedList::add(int value, int index)
-{
-	Node* addNode = new Node;
-	Node* scanNode;
-
-	if (head == NULL)
-	{
-
 	}
 }
 

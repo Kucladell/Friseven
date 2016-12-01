@@ -2,37 +2,42 @@
 
 ListStack::ListStack()
 {
-	list.Clear();
+	list.removeAll();
 	size = 0;
 }
 
 ListStack::~ListStack()
 {
-	list.Clear();
+	list.removeAll();
 	size = 0;
 }
 
-void ListStack::Push(int value)
+void ListStack::push(int value)
 {
-	list.AddBack(value);
+	list.addFirst(value);
 	size++;
 }
 
-int ListStack::Pop()
+int ListStack::pop()
 {
-	list.PrintLast();
-	list.RemoveLast();
+	int value = list.printFirst();
+	list.removeFirst();
+	return value;
 	size--;
 }
 
-int ListStack::Top()
+int ListStack::top()
 {
-	list.PrintLast();
+	return list.printFirst();
 }
 
-bool ListStack::Empty()
+int ListStack::count()
 {
-	return list.Empty();
-	size = 0;
+	return size;
+}
+
+bool ListStack::isEmpty()
+{
+	return list.isEmpty();
 }
 
