@@ -6,7 +6,11 @@ LinkedList::LinkedList()
 	head = nullptr;
 	count = 0;
 }
-
+LinkedList::LinkedList(int initialvalue)
+{
+	removeAll();
+	addLast(initialvalue);
+}
 LinkedList::~LinkedList()
 {
 	LinkedList::removeAll();
