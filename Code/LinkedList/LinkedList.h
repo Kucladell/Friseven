@@ -11,6 +11,12 @@ class LinkedList
 {
 public:
 	LinkedList();
+	LinkedList(Node* _head) : head(_head)
+	{
+
+	}
+	LinkedList(int initalvalue);
+	
 	~LinkedList();
 
 	void add(int value, int index); //지정한 위치에 노드를 추가
