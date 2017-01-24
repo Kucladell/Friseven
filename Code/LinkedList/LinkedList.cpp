@@ -22,10 +22,6 @@ void LinkedList::add(int value, int index)
 	{
 		std::cout << "잘못된 인덱스값입니다." << std::endl;
 	}
-	else if (head == NULL && index != 0)
-	{
-		std::cout << "잘못된 인덱스값입니다." << std::endl;
-	}
 	else
 	{
 		Node* addNode = new Node;
@@ -76,7 +72,7 @@ void LinkedList::add(int value, int index)
 
 void LinkedList::addFirst(int value)
 {
-	LinkedList::add(value, 0);
+	add(value, 0);
 }
 
 void LinkedList::addLast(int value)
