@@ -1,5 +1,10 @@
 #include "LinkedList_Score.h"
+#include <algorithm>
+#include <iostream>
+#include <string>
 
+Node* inputScore();
+void printLine();
 
 //LinkedList 생성자
 LinkedList::LinkedList()
@@ -17,175 +22,11 @@ LinkedList::~LinkedList()
 //메뉴 1: 성적 입력
 void LinkedList::add()
 {
-	Node* addNode = new Node;
 	Node* scanNode;
-	std::string gradeText_temp;
-	char isMajor_temp;
-
+	
 	if (head == NULL)
 	{
-		std::cout << "--새 성적 입력-----------------------" << std::endl;
-
-		std::cout << "- 과목명" << std::endl;
-		std::cout << ">";
-		std::cin >> addNode->value.name;
-
-		std::cout << "- 단위(1학점, 2학점, 3학점 등)" << std::endl;
-		std::cout << ">";
-		std::cin >> addNode->value.credit;
-
-		std::cout << "- 획득한 학점(A+, A, B 등)" << std::endl;
-		std::cout << ">";
-		std::cin >> gradeText_temp;
-
-		if (gradeText_temp == "A+")
-		{
-			addNode->value.grade = 4.5;
-			addNode->value.gradeText = "A+";
-		}
-		else if (gradeText_temp == "A")
-		{
-			addNode->value.grade = 4;
-			addNode->value.gradeText = "A";
-		}
-		else if (gradeText_temp == "B+")
-		{
-			addNode->value.grade = 3.5;
-			addNode->value.gradeText = "B+";
-		}
-		else if (gradeText_temp == "B")
-		{
-			addNode->value.grade = 3;
-			addNode->value.gradeText = "B";
-		}
-		else if (gradeText_temp == "C+")
-		{
-			addNode->value.grade = 2.5;
-			addNode->value.gradeText = "C+";
-		}
-		else if (gradeText_temp == "C")
-		{
-			addNode->value.grade = 2;
-			addNode->value.gradeText = "C";
-		}
-		else if (gradeText_temp == "D+")
-		{
-			addNode->value.grade = 1.5;
-			addNode->value.gradeText = "D+";
-		}
-		else if (gradeText_temp == "D")
-		{
-			addNode->value.grade = 1;
-			addNode->value.gradeText = "D";
-		}
-		else if (gradeText_temp == "F")
-		{
-			addNode->value.grade = 0;
-			addNode->value.gradeText = "F";
-		}
-		else
-		{
-			while (true)
-			{
-				std::cout << "입력값이 잘못되었습니다. 학점을 다시 입력하십시오." << std::endl;
-				std::cout << "(A+, A, B+, B, C+, C, D+, D, F)" << std::endl;
-				std::cout << ">";
-				std::cin >> gradeText_temp;
-
-				if (gradeText_temp == "A+")
-				{
-					addNode->value.grade = 4.5;
-					addNode->value.gradeText = "A+";
-					break;
-				}
-				else if (gradeText_temp == "A")
-				{
-					addNode->value.grade = 4;
-					addNode->value.gradeText = "A";
-					break;
-				}
-				else if (gradeText_temp == "B+")
-				{
-					addNode->value.grade = 3.5;
-					addNode->value.gradeText = "B+";
-					break;
-				}
-				else if (gradeText_temp == "B")
-				{
-					addNode->value.grade = 3;
-					addNode->value.gradeText = "B";
-					break;
-				}
-				else if (gradeText_temp == "C+")
-				{
-					addNode->value.grade = 2.5;
-					addNode->value.gradeText = "C+";
-					break;
-				}
-				else if (gradeText_temp == "C")
-				{
-					addNode->value.grade = 2;
-					addNode->value.gradeText = "C";
-					break;
-				}
-				else if (gradeText_temp == "D+")
-				{
-					addNode->value.grade = 1.5;
-					addNode->value.gradeText = "D+";
-					break;
-				}
-				else if (gradeText_temp == "D")
-				{
-					addNode->value.grade = 1;
-					addNode->value.gradeText = "D";
-					break;
-				}
-				else if (gradeText_temp == "F")
-				{
-					addNode->value.grade = 0;
-					addNode->value.gradeText = "F";
-					break;
-				}
-			}
-		}
-
-		std::cout << "전공 여부(Y, N)" << std::endl;
-		std::cout << ">";
-		std::cin >> isMajor_temp;
-
-		if (isMajor_temp == 'Y' || isMajor_temp == 'y')
-		{
-			addNode->value.isMajor = true;
-		}
-		else if (isMajor_temp == 'N' || isMajor_temp == 'n')
-		{
-			addNode->value.isMajor = false;
-		}
-		else
-		{
-			while (true)
-			{
-				std::cout << "입력값이 잘못되었습니다. 전공 여부를 다시 입력하십시오." << std::endl;
-				std::cout << "(Y, N)" << std::endl;
-				std::cout << ">";
-				std::cin >> isMajor_temp;
-
-				if (isMajor_temp == 'Y' || isMajor_temp == 'y')
-				{
-					addNode->value.isMajor = true;
-					break;
-				}
-				else if (isMajor_temp == 'N' || isMajor_temp == 'n')
-				{
-					addNode->value.isMajor = false;
-					break;
-				}
-			}
-		}
-
-		std::cout << "-------------------------------------" << std::endl;
-
-		addNode->next = NULL;
+		Node* addNode = inputScore();
 		head = addNode;
 	}
 	else
@@ -196,168 +37,7 @@ void LinkedList::add()
 			scanNode = scanNode->next;
 		}
 
-		std::cout << "--새 성적 입력-----------------------" << std::endl;
-
-		std::cout << "- 과목명" << std::endl;
-		std::cout << ">";
-		std::cin >> addNode->value.name;
-
-		std::cout << "- 단위(1학점, 2학점, 3학점 등)" << std::endl;
-		std::cout << ">";
-		std::cin >> addNode->value.credit;
-
-		std::cout << "- 획득한 학점(A+, A, B 등)" << std::endl;
-		std::cout << ">";
-		std::cin >> gradeText_temp;
-
-		if (gradeText_temp == "A+")
-		{
-			addNode->value.grade = 4.5;
-			addNode->value.gradeText = "A+";
-		}
-		else if (gradeText_temp == "A")
-		{
-			addNode->value.grade = 4;
-			addNode->value.gradeText = "A";
-		}
-		else if (gradeText_temp == "B+")
-		{
-			addNode->value.grade = 3.5;
-			addNode->value.gradeText = "B";
-		}
-		else if (gradeText_temp == "B")
-		{
-			addNode->value.grade = 3;
-			addNode->value.gradeText = "B";
-		}
-		else if (gradeText_temp == "C+")
-		{
-			addNode->value.grade = 2.5;
-			addNode->value.gradeText = "C+";
-		}
-		else if (gradeText_temp == "C")
-		{
-			addNode->value.grade = 2;
-			addNode->value.gradeText = "C";
-		}
-		else if (gradeText_temp == "D+")
-		{
-			addNode->value.grade = 1.5;
-			addNode->value.gradeText = "D+";
-		}
-		else if (gradeText_temp == "D")
-		{
-			addNode->value.grade = 1;
-			addNode->value.gradeText = "D";
-		}
-		else if (gradeText_temp == "F")
-		{
-			addNode->value.grade = 0;
-			addNode->value.gradeText = "F";
-		}
-		else
-		{
-			while (true)
-			{
-				std::cout << "입력값이 잘못되었습니다. 학점을 다시 입력하십시오." << std::endl;
-				std::cout << "(A+, A, B+, B, C+, C, D+, D, F)" << std::endl;
-				std::cout << ">";
-				std::cin >> gradeText_temp;
-
-				if (gradeText_temp == "A+")
-				{
-					addNode->value.grade = 4.5;
-					addNode->value.gradeText = "A+";
-					break;
-				}
-				else if (gradeText_temp == "A")
-				{
-					addNode->value.grade = 4;
-					addNode->value.gradeText = "A";
-					break;
-				}
-				else if (gradeText_temp == "B+")
-				{
-					addNode->value.grade = 3.5;
-					addNode->value.gradeText = "B";
-					break;
-				}
-				else if (gradeText_temp == "B")
-				{
-					addNode->value.grade = 3;
-					addNode->value.gradeText = "B";
-					break;
-				}
-				else if (gradeText_temp == "C+")
-				{
-					addNode->value.grade = 2.5;
-					addNode->value.gradeText = "C+";
-					break;
-				}
-				else if (gradeText_temp == "C")
-				{
-					addNode->value.grade = 2;
-					addNode->value.gradeText = "C";
-					break;
-				}
-				else if (gradeText_temp == "D+")
-				{
-					addNode->value.grade = 1.5;
-					addNode->value.gradeText = "D+";
-					break;
-				}
-				else if (gradeText_temp == "D")
-				{
-					addNode->value.grade = 1;
-					addNode->value.gradeText = "D";
-					break;
-				}
-				else if (gradeText_temp == "F")
-				{
-					addNode->value.grade = 0;
-					addNode->value.gradeText = "F";
-					break;
-				}
-			}
-		}
-
-		std::cout << "전공 여부(Y, N)" << std::endl;
-		std::cout << ">";
-		std::cin >> isMajor_temp;
-
-		if (isMajor_temp == 'Y' || isMajor_temp == 'y')
-		{
-			addNode->value.isMajor = true;
-		}
-		else if (isMajor_temp == 'N' || isMajor_temp == 'n')
-		{
-			addNode->value.isMajor = false;
-		}
-		else
-		{
-			while (true)
-			{
-				std::cout << "입력값이 잘못되었습니다. 전공 여부를 다시 입력하십시오." << std::endl;
-				std::cout << "(Y, N)" << std::endl;
-				std::cout << ">";
-				std::cin >> isMajor_temp;
-
-				if (isMajor_temp == 'Y' || isMajor_temp == 'y')
-				{
-					addNode->value.isMajor = true;
-					break;
-				}
-				else if (isMajor_temp == 'N' || isMajor_temp == 'n')
-				{
-					addNode->value.isMajor = false;
-					break;
-				}
-			}
-		}
-
-		std::cout << "-------------------------------------" << std::endl;
-
-		addNode->next = NULL;
+		Node* addNode = inputScore();
 		scanNode->next = addNode;
 	}
 
@@ -367,14 +47,9 @@ void LinkedList::add()
 //메뉴 2: 입력된 자료 확인
 void LinkedList::print()
 {
-	std::cout << "-------------------------------------" << std::endl;
+	printLine();
 
-	if (count <= 0)
-	{
-		std::cout << "아직 입력된 성적이 없습니다." << std::endl;
-		return;
-	}
-	else if (head == NULL)
+	if (count <= 0 || head == NULL)
 	{
 		std::cout << "아직 입력된 성적이 없습니다." << std::endl;
 		return;
@@ -398,7 +73,7 @@ void LinkedList::print()
 		}
 	}
 
-	std::cout << "-------------------------------------" << std::endl;
+	printLine();
 }
 
 //메뉴 3: 계산 결과 출력
@@ -409,11 +84,7 @@ void LinkedList::calculate()
 	int credit_major_sum = 0;
 	float grade_major_sum = 0.0f;
 
-	if (count <= 0)
-	{
-		std::cout << "아직 입력된 성적이 없습니다." << std::endl;
-	}
-	else if (head == NULL)
+	if (count <= 0 || head == NULL)
 	{
 		std::cout << "아직 입력된 성적이 없습니다." << std::endl;
 	}
@@ -434,19 +105,19 @@ void LinkedList::calculate()
 			scanNode = scanNode->next;
 		}
 
-		std::cout << "-------------------------------------" << std::endl;
+		printLine();
 		std::cout << "수강 강의 수: " << count << std::endl << std::endl;
 		std::cout << "총 이수 학점: " << credit_all_sum << std::endl;
 		std::cout << "총 평점평균: " << grade_all_sum / (float)credit_all_sum << std::endl << std::endl;
 		std::cout << "전공 이수 학점: " << credit_major_sum << std::endl;
 		std::cout << "전공 평점평균: " << grade_major_sum / (float)credit_major_sum << std::endl;
-		std::cout << "-------------------------------------" << std::endl;
+		printLine();
 	}
 
 
 }
 
-//clear 함수
+//모든 노드를 삭제
 void LinkedList::clear()
 {
 	Node* scanNode = head;
@@ -460,6 +131,128 @@ void LinkedList::clear()
 	}
 	delete scanNode;
 	count = 0;
+}
 
-	//QUESTION: 여기에서 생성자 함수를 호출해도 되는가
+Node* inputScore()
+{
+	Node* addNode = new Node;
+	std::string gradeText_temp;
+	std::string isMajor_temp;
+	std::string value_temp;
+
+	printLine();
+
+	//과목명 입력
+	std::cout << "- 과목명" << std::endl;
+	std::cout << ">";
+	std::getline(std::cin, addNode->value.name);
+
+	//단위 입력
+	std::cout << "- 단위(1학점, 2학점, 3학점 등)" << std::endl;
+	std::cout << ">";
+	std::getline(std::cin, value_temp);
+	addNode->value.credit = atoi(value_temp.c_str());
+
+	//성적 입력
+	while (true)
+	{
+		std::cout << "- 획득한 성적(A+, A, B 등)" << std::endl;
+		std::cout << ">";
+		std::getline(std::cin, gradeText_temp);
+		transform(gradeText_temp.begin(), gradeText_temp.end(), gradeText_temp.begin(), toupper);
+
+		if (gradeText_temp == "A+")
+		{
+			addNode->value.grade = 4.5;
+			addNode->value.gradeText = "A+";
+			break;
+		}
+		else if (gradeText_temp == "A")
+		{
+			addNode->value.grade = 4;
+			addNode->value.gradeText = "A";
+			break;
+		}
+		else if (gradeText_temp == "B+")
+		{
+			addNode->value.grade = 3.5;
+			addNode->value.gradeText = "B+";
+			break;
+		}
+		else if (gradeText_temp == "B")
+		{
+			addNode->value.grade = 3;
+			addNode->value.gradeText = "B";
+			break;
+		}
+		else if (gradeText_temp == "C+")
+		{
+			addNode->value.grade = 2.5;
+			addNode->value.gradeText = "C+";
+			break;
+		}
+		else if (gradeText_temp == "C")
+		{
+			addNode->value.grade = 2;
+			addNode->value.gradeText = "C";
+			break;
+		}
+		else if (gradeText_temp == "D+")
+		{
+			addNode->value.grade = 1.5;
+			addNode->value.gradeText = "D+";
+			break;
+		}
+		else if (gradeText_temp == "D")
+		{
+			addNode->value.grade = 1;
+			addNode->value.gradeText = "D";
+			break;
+		}
+		else if (gradeText_temp == "F")
+		{
+			addNode->value.grade = 0;
+			addNode->value.gradeText = "F";
+			break;
+		}
+		else
+		{
+			std::cout << "입력값이 잘못되었습니다." << std::endl;
+		}
+	}
+
+	//전공 여부 입력
+	while (true)
+	{
+		std::cout << "전공 여부(Y, N)" << std::endl;
+		std::cout << ">";
+		std::getline(std::cin, isMajor_temp);
+		transform(isMajor_temp.begin(), isMajor_temp.end(), isMajor_temp.begin(), toupper);
+
+		if (isMajor_temp == "Y")
+		{
+			addNode->value.isMajor = true;
+			break;
+		}
+		else if (isMajor_temp == "N")
+		{
+			addNode->value.isMajor = false;
+			break;
+		}
+		else
+		{
+			std::cout << "입력값이 잘못되었습니다." << std::endl;
+		}
+	}
+
+	printLine();
+
+	addNode->next = NULL;
+
+	return addNode;
+}
+
+void printLine()
+{
+	std::cout << "-------------------------------------" << std::endl;
 }

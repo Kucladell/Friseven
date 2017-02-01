@@ -5,7 +5,6 @@
 std::string menu();
 
 //main
-//QUESTION: 왜 main을 맨 위로 올리면 에러가 나는가
 int main(void)
 {
 	LinkedList data;
@@ -17,30 +16,30 @@ int main(void)
 	{
 		command = menu();
 		int command_int = atoi(command.c_str());
+
 		if (command_int < 0)
 		{
 			command_int = 0;
 		}
 		switch (command_int)
 		{
-			case 1:
+			case 1: //메뉴 1: 성적 입력
 			{
 				data.add();
 				break;
 			}
-			case 2:
+			case 2: //메뉴 2: 입력된 자료 확인
 			{
 				data.print();
 				break;
 			}
-			case 3:
+			case 3: //메뉴 3: 계산 결과 출력
 			{
 				data.calculate();
 				break;
 			}
-			case 4:
+			case 4: //메뉴 4: 종료
 			{
-				//메뉴 4: 종료
 				exit = true;
 				break;
 			}
@@ -67,7 +66,7 @@ std::string menu()
 	std::cout << "4. 종료" << std::endl;
 	std::cout << "-------------------------------------" << std::endl;
 	std::cout << ">";
-	std::cin >> selected;
+	std::getline(std::cin, selected);
 
 	return selected;
 }
