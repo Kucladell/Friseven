@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedList_Score.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

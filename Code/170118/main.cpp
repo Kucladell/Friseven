@@ -1,8 +1,6 @@
-#include <iostream>
-#include <string>
-#include "LinkedList_Score.h"
+#include "stdafx.h"
 
-std::string menu();
+
 
 //main
 //QUESTION: 왜 main을 맨 위로 올리면 에러가 나는가
