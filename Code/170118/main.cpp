@@ -1,8 +1,6 @@
-#include <iostream>
-#include <string>
-#include "LinkedList_Score.h"
+#include "stdafx.h"
 
-std::string menu();
+
 
 //main
 int main(void)
