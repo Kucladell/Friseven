@@ -62,7 +62,7 @@ void LinkedList::print()
 		{
 			if (scanNode->value.isMajor)
 			{
-				std::cout << scanNode->value.name << "(" << scanNode->value.credit << "학점, 전공): " << scanNode->value.gradeText << std::endl;
+				std::cout << scanNode->value.name + "(" + std::to_string(scanNode->value.credit) + "학점, 전공): " + scanNode->value.gradeText << std::endl;
 			}
 			else
 			{
@@ -133,6 +133,7 @@ void LinkedList::clear()
 	count = 0;
 }
 
+//고쳐봄
 Node* inputScore()
 {
 	Node* addNode = new Node;
@@ -151,7 +152,7 @@ Node* inputScore()
 	std::cout << "- 단위(1학점, 2학점, 3학점 등)" << std::endl;
 	std::cout << ">";
 	std::getline(std::cin, value_temp);
-	addNode->value.credit = atoi(value_temp.c_str());
+	addNode->value.credit = atoi(value_temp.c_str());//Question : 이게 왜 되나?
 
 	//성적 입력
 	while (true)
@@ -159,8 +160,10 @@ Node* inputScore()
 		std::cout << "- 획득한 성적(A+, A, B 등)" << std::endl;
 		std::cout << ">";
 		std::getline(std::cin, gradeText_temp);
-		transform(gradeText_temp.begin(), gradeText_temp.end(), gradeText_temp.begin(), toupper);
-
+		
+		transform(gradeText_temp.begin(), gradeText_temp.end(), gradeText_temp.begin(), toupper);//Question : begin end뭔지 암?
+		//std::string에 대해서
+		/*
 		if (gradeText_temp == "A+")
 		{
 			addNode->value.grade = 4.5;
@@ -215,9 +218,40 @@ Node* inputScore()
 			addNode->value.gradeText = "F";
 			break;
 		}
-		else
+		*/
+		if(gradeText_temp.length()>3)
 		{
 			std::cout << "입력값이 잘못되었습니다." << std::endl;
+		}
+		else
+		{
+			
+			//첫번째 문자에서 숫자를 빼냄
+			addNode->value.grade = 4.0f - (gradeText_temp[0] - 'A');
+			//F면
+			if (addNode->value.grade == -1.0f && gradeText_temp.length()==1)
+			{
+				addNode->value.grade = 0.0f;
+				addNode->value.gradeText = gradeText_temp;
+				break;
+			}
+			//A~D사이
+			if (addNode->value.grade < 1.0f || addNode->value.grade>4.0f)
+			{
+				std::cout << "입력값이 잘못되었습니다." << std::endl;
+			}//+
+			else if(gradeText_temp[1]=='+')
+			{
+				
+				addNode->value.grade += 0.5;
+				addNode->value.gradeText = gradeText_temp;
+				break;
+			}//+없음
+			else
+			{
+				addNode->value.gradeText = gradeText_temp;
+				break;
+			}
 		}
 	}
 

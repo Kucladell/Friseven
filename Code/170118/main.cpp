@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-std::string menu();
+
 
 //main
 int main(void)
