@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <list>
+#include <map>
+#include <vector>
 
 struct Score
 {
@@ -11,12 +14,13 @@ struct Score
 	bool isMajor;
 };
 
+template<typename T1,typename T2> 
 struct Node
 {
-	Score value;
+	T1 value;
 	Node* next;
 };
-
+template<typename T>
 class LinkedList
 {
 public:
@@ -29,7 +33,21 @@ public:
 	void clear(); //모든 노드를 삭제
 
 private:
-	Node* head;
+	Node<T>* head;
+	Node<T>* inputScore();
+	void capitalize(std::string& string);
 	int count; //노드의 개수
+	std::list<Score> Score_List;
+	std::map<std::string, Score> scoremap;
+	void ddd()
+	{
+		Score_List.push_back(input);
+		Score dd;
+		scoremap["컴퓨터구조"] = dd;
+		scoremap.insert();
+		scoremap.clear();
+		std::vector<Score> sda;
+		sda.size();
 
+	}
 };
