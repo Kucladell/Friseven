@@ -1,0 +1,11 @@
+double a;
+	const int c = 3;
+	std::string d = "3ds";
+	int b = static_cast<int>( a);
+	dynamic_cast<>();
+		a = reinterpret_cast<double>(d);
+		const_cast<int>(c) = 5;
+
+std::string::iterator a;
+for (auto a = temp.begin(); a != temp.end(); a++)
+std::sort(vec);

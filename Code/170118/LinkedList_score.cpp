@@ -1,34 +1,31 @@
 #include "LinkedList_Score.h"
-#include <algorithm>
 #include <iostream>
 #include <string>
 
 inline void printLine();
-std::string::iterator a;
-for (auto a = temp.begin(); a != temp.end(); a++)
-std::sort(vec);
+void capitalize(std::string& string);
+
 //LinkedList 생성자
-LinkedList::LinkedList()
+LinkedList<Score>::LinkedList()
 {
-	
 	head = nullptr;
 	count = 0;
 }
 
 //LinkedList 소멸자
-LinkedList::~LinkedList()
+LinkedList<Score>::~LinkedList()
 {
-	LinkedList::clear();
+	LinkedList<Score>::clear();
 }
 
 //메뉴 1: 성적 입력
-void LinkedList::add()
+void LinkedList<Score>::add()
 {
-	Node* scanNode;
+	Node<Score>* scanNode;
 	
 	if (head == NULL)
 	{
-		Node* addNode = inputScore();
+		Node<Score>* addNode = inputScore();
 		head = addNode;
 	}
 	else
@@ -39,7 +36,7 @@ void LinkedList::add()
 			scanNode = scanNode->next;
 		}
 
-		Node* addNode = inputScore();
+		Node<Score>* addNode = inputScore();
 		scanNode->next = addNode;
 	}
 
@@ -47,7 +44,7 @@ void LinkedList::add()
 }
 
 //메뉴 2: 입력된 자료 확인
-void LinkedList::print()
+void LinkedList<Score>::print()
 {
 	printLine();
 
@@ -58,7 +55,7 @@ void LinkedList::print()
 	}
 	else
 	{
-		Node* scanNode = head;
+		Node<Score>* scanNode = head;
 
 		while (scanNode != NULL)
 		{
@@ -79,7 +76,7 @@ void LinkedList::print()
 }
 
 //메뉴 3: 계산 결과 출력
-void LinkedList::calculate()
+void LinkedList<Score>::calculate()
 {
 	int credit_all_sum = 0;
 	float grade_all_sum = 0.0f;
@@ -92,7 +89,7 @@ void LinkedList::calculate()
 	}
 	else
 	{
-		Node* scanNode = head;
+		Node<Score>* scanNode = head;
 
 		while (scanNode != NULL)
 		{
@@ -120,10 +117,11 @@ void LinkedList::calculate()
 }
 
 //모든 노드를 삭제
-void LinkedList::clear()
+template<> //QUESTION: template <typename T>가 아니었던 건가요
+void LinkedList<Score>::clear()
 {
-	Node* scanNode = head;
-	Node* prevNode;
+	Node<Score>* scanNode = head;
+	Node<Score>* prevNode;
 
 	while (scanNode->next != NULL)
 	{
@@ -135,10 +133,11 @@ void LinkedList::clear()
 	count = 0;
 }
 
-//고쳐봄
-Node* LinkedList::inputScore()
+//성적 입력(add와 연동)
+template<>
+Node<Score>* LinkedList<Score>::inputScore()
 {
-	Node<int>* addNode = new Node<int>;
+	Node<Score>* addNode = new Node<Score>;
 	std::string gradeText_temp;
 	std::string isMajor_temp;
 	std::string value_temp;
@@ -162,94 +161,36 @@ Node* LinkedList::inputScore()
 		std::cout << "- 획득한 성적(A+, A, B 등)" << std::endl;
 		std::cout << ">";
 		std::getline(std::cin, gradeText_temp);
-		
-		transform(gradeText_temp.begin(), gradeText_temp.end(), gradeText_temp.begin(), toupper);//Question : begin end뭔지 암?
-		//std::string에 대해서
-		/*
-		if (gradeText_temp == "A+")
-		{
-			addNode->value.grade = 4.5;
-			addNode->value.gradeText = "A+";
-			break;
-		}
-		else if (gradeText_temp == "A")
-		{
-			addNode->value.grade = 4;
-			addNode->value.gradeText = "A";
-			break;
-		}
-		else if (gradeText_temp == "B+")
-		{
-			addNode->value.grade = 3.5;
-			addNode->value.gradeText = "B+";
-			break;
-		}
-		else if (gradeText_temp == "B")
-		{
-			addNode->value.grade = 3;
-			addNode->value.gradeText = "B";
-			break;
-		}
-		else if (gradeText_temp == "C+")
-		{
-			addNode->value.grade = 2.5;
-			addNode->value.gradeText = "C+";
-			break;
-		}
-		else if (gradeText_temp == "C")
-		{
-			addNode->value.grade = 2;
-			addNode->value.gradeText = "C";
-			break;
-		}
-		else if (gradeText_temp == "D+")
-		{
-			addNode->value.grade = 1.5;
-			addNode->value.gradeText = "D+";
-			break;
-		}
-		else if (gradeText_temp == "D")
-		{
-			addNode->value.grade = 1;
-			addNode->value.gradeText = "D";
-			break;
-		}
-		else if (gradeText_temp == "F")
-		{
-			addNode->value.grade = 0;
-			addNode->value.gradeText = "F";
-			break;
-		}
-		*/
+		capitalize(gradeText_temp);
+
 		if(gradeText_temp.length()>3)
 		{
 			std::cout << "입력값이 잘못되었습니다." << std::endl;
 		}
 		else
 		{
-			
-			//첫번째 문자에서 숫자를 빼냄
+			//첫번째 문자에서 숫자를 산출(Keycode 이용)
 			addNode->value.grade = 4.0f - (gradeText_temp[0] - 'A');
-			//F면
-			if (addNode->value.grade == -1.0f && gradeText_temp.length()==1)
+
+			//성적이 F일 경우
+			if (addNode->value.grade == -1.0f && gradeText_temp.length() == 1)
 			{
 				addNode->value.grade = 0.0f;
 				addNode->value.gradeText = gradeText_temp;
 				break;
 			}
-			//A~D사이
+			//성적이 A에서 D 사이일 경우
 			if (addNode->value.grade < 1.0f || addNode->value.grade>4.0f)
 			{
 				std::cout << "입력값이 잘못되었습니다." << std::endl;
-			}//+
-			else if(gradeText_temp[1]=='+')
+			}
+			else if(gradeText_temp[1]=='+') //+가 붙은 경우
 			{
-				
 				addNode->value.grade += 0.5;
 				addNode->value.gradeText = gradeText_temp;
 				break;
-			}//+없음
-			else
+			}
+			else //+가 붙지 않은 경우
 			{
 				addNode->value.gradeText = gradeText_temp;
 				break;
@@ -290,14 +231,7 @@ Node* LinkedList::inputScore()
 
 void capitalize(std::string& string)
 {
-	double a;
-	const int c = 3;
-	std::string d = "3ds";
-	int b = static_cast<int>( a);
-	dynamic_cast<>();
-		a = reinterpret_cast<double>(d);
-		const_cast<int>(c) = 5;
-	for (int i = 0; i < string.length(); i++)
+	for (int i = 0; i < (int)string.length(); i++)
 	{
 		string[i] = toupper(string[i]);
 	}

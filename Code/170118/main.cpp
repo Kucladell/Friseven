@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-
-
 //main
 int main(void)
 {
