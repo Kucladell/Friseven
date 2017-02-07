@@ -6,26 +6,31 @@ inline void printLine();
 void capitalize(std::string& string);
 
 //LinkedList 생성자
-LinkedList<Score>::LinkedList()
+template<typename T>
+LinkedList<T>::LinkedList()
 {
 	head = nullptr;
 	count = 0;
 }
 
 //LinkedList 소멸자
-LinkedList<Score>::~LinkedList()
+template<typename T>
+LinkedList<T>::~LinkedList()
 {
-	LinkedList<Score>::clear();
+	LinkedList<T>::clear();
 }
 
 //메뉴 1: 성적 입력
-void LinkedList<Score>::add()
+//----------------------------------------------------
+/*
+template<typename T>
+void LinkedList<T>::add()
 {
-	Node<Score>* scanNode;
+	Node<T>* scanNode;
 	
 	if (head == NULL)
 	{
-		Node<Score>* addNode = inputScore();
+		Node<T>* addNode = inputScore();
 		head = addNode;
 	}
 	else
@@ -36,15 +41,41 @@ void LinkedList<Score>::add()
 			scanNode = scanNode->next;
 		}
 
-		Node<Score>* addNode = inputScore();
+		Node<T>* addNode = inputScore();
 		scanNode->next = addNode;
+	}
+
+	count++;
+}
+*/
+//----------------------------------------------------
+template<typename T>
+void LinkedList::add(Node<T>* inputNode)
+{
+
+	if (head == NULL)
+	{
+		
+		head = inputNode;
+	}
+	else
+	{
+		scanNode = head;
+		while (scanNode->next != NULL)
+		{
+			scanNode = scanNode->next;
+		}
+
+		
+		scanNode->next = inputNode;
 	}
 
 	count++;
 }
 
 //메뉴 2: 입력된 자료 확인
-void LinkedList<Score>::print()
+template<typename T>
+void LinkedList<T>::print()
 {
 	printLine();
 
@@ -59,15 +90,20 @@ void LinkedList<Score>::print()
 
 		while (scanNode != NULL)
 		{
+			//----------------------------------------------------
+			/*
 			if (scanNode->value.isMajor)
 			{
 				std::cout << scanNode->value.name + "(" + std::to_string(scanNode->value.credit) + "학점, 전공): " + scanNode->value.gradeText << std::endl;
+								
 			}
 			else
 			{
 				std::cout << scanNode->value.name << "(" << scanNode->value.credit << "학점, 교양): " << scanNode->value.gradeText << std::endl;
 			}
-
+			*/
+			//----------------------------------------------------
+			scanNode->value.Print();
 			scanNode = scanNode->next;
 		}
 	}
@@ -76,7 +112,8 @@ void LinkedList<Score>::print()
 }
 
 //메뉴 3: 계산 결과 출력
-void LinkedList<Score>::calculate()
+template<typename T>
+void LinkedList<T>::calculate()
 {
 	int credit_all_sum = 0;
 	float grade_all_sum = 0.0f;
@@ -89,10 +126,13 @@ void LinkedList<Score>::calculate()
 	}
 	else
 	{
-		Node<Score>* scanNode = head;
+		Node<T>* scanNode = head;
 
 		while (scanNode != NULL)
 		{
+
+			//----------------------------------------------------
+			/*
 			credit_all_sum += scanNode->value.credit;
 			grade_all_sum += scanNode->value.grade * scanNode->value.credit;
 			if (scanNode->value.isMajor)
@@ -100,16 +140,22 @@ void LinkedList<Score>::calculate()
 				credit_major_sum += scanNode->value.credit;
 				grade_major_sum += scanNode->value.grade * scanNode->value.credit;
 			}
-
+			*/
+			//---------------------------------------------------
+			//TODO
 			scanNode = scanNode->next;
 		}
 
 		printLine();
+		//----------------------------------------------------
+		/*
 		std::cout << "수강 강의 수: " << count << std::endl << std::endl;
 		std::cout << "총 이수 학점: " << credit_all_sum << std::endl;
 		std::cout << "총 평점평균: " << grade_all_sum / (float)credit_all_sum << std::endl << std::endl;
 		std::cout << "전공 이수 학점: " << credit_major_sum << std::endl;
 		std::cout << "전공 평점평균: " << grade_major_sum / (float)credit_major_sum << std::endl;
+		*/
+		//----------------------------------------------------
 		printLine();
 	}
 
@@ -133,9 +179,10 @@ void LinkedList<Score>::clear()
 	count = 0;
 }
 
+/*
 //성적 입력(add와 연동)
-template<>
-Node<Score>* LinkedList<Score>::inputScore()
+template<class T>
+Node<T>* LinkedList<T>::inputScore()
 {
 	Node<Score>* addNode = new Node<Score>;
 	std::string gradeText_temp;
@@ -145,6 +192,7 @@ Node<Score>* LinkedList<Score>::inputScore()
 	printLine();
 
 	//과목명 입력
+
 	std::cout << "- 과목명" << std::endl;
 	std::cout << ">";
 	std::getline(std::cin, addNode->value.name);
@@ -228,7 +276,7 @@ Node<Score>* LinkedList<Score>::inputScore()
 
 	return addNode;
 }
-
+*/
 void capitalize(std::string& string)
 {
 	for (int i = 0; i < (int)string.length(); i++)
