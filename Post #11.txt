@@ -9,3 +9,22 @@ double a;
 std::string::iterator a;
 for (auto a = temp.begin(); a != temp.end(); a++)
 std::sort(vec);
+
+
+#include <list>
+#include <map>
+#include <vector>
+
+std::list<Score> Score_List;
+	std::map<std::string, Score> scoremap;
+	void ddd()
+	{
+		Score_List.push_back(input);
+		Score dd;
+		scoremap["컴퓨터구조"] = dd;
+		scoremap.insert();
+		scoremap.clear();
+		std::vector<Score> sda;
+		sda.size();
+
+	}
