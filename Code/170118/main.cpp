@@ -5,7 +5,7 @@
 //main
 int main(void)
 {
-	LinkedList data;
+	LinkedList<Score> data;
 	int data_count = 0;
 	std::string command;
 	bool exit = false;

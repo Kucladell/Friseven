@@ -3,12 +3,14 @@
 #include <iostream>
 #include <string>
 
-Node* inputScore();
-void printLine();
-
+inline void printLine();
+std::string::iterator a;
+for (auto a = temp.begin(); a != temp.end(); a++)
+std::sort(vec);
 //LinkedList 생성자
 LinkedList::LinkedList()
 {
+	
 	head = nullptr;
 	count = 0;
 }
@@ -134,9 +136,9 @@ void LinkedList::clear()
 }
 
 //고쳐봄
-Node* inputScore()
+Node* LinkedList::inputScore()
 {
-	Node* addNode = new Node;
+	Node<int>* addNode = new Node<int>;
 	std::string gradeText_temp;
 	std::string isMajor_temp;
 	std::string value_temp;
@@ -261,7 +263,7 @@ Node* inputScore()
 		std::cout << "전공 여부(Y, N)" << std::endl;
 		std::cout << ">";
 		std::getline(std::cin, isMajor_temp);
-		transform(isMajor_temp.begin(), isMajor_temp.end(), isMajor_temp.begin(), toupper);
+		capitalize(isMajor_temp);
 
 		if (isMajor_temp == "Y")
 		{
@@ -284,6 +286,21 @@ Node* inputScore()
 	addNode->next = NULL;
 
 	return addNode;
+}
+
+void capitalize(std::string& string)
+{
+	double a;
+	const int c = 3;
+	std::string d = "3ds";
+	int b = static_cast<int>( a);
+	dynamic_cast<>();
+		a = reinterpret_cast<double>(d);
+		const_cast<int>(c) = 5;
+	for (int i = 0; i < string.length(); i++)
+	{
+		string[i] = toupper(string[i]);
+	}
 }
 
 void printLine()
