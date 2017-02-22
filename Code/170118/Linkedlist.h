@@ -2,13 +2,13 @@
 
 #include <iostream>
 #include <string>
+#include "Score.h"
 
 template<typename T>
 struct Node
 {
 	T value;
 	Node* next;
-
 };
 
 template<typename T>
@@ -18,13 +18,12 @@ public:
 	LinkedList();
 	~LinkedList();
 
-	//void add(); //새 값을 입력
-	void print(); //모든 노드를 출력
-	void calculate(); //학점 계산 결과를 출력
-	void clear(); //모든 노드를 삭제
 	void add(Node<T>* inputNode);
+	T print(int index);
+	void clear(); //모든 노드를 삭제
+	int length();
+	
 private:
 	Node<T>* head;
-	//Node<T>* inputScore();
 	int count; //노드의 개수
 };

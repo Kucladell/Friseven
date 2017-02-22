@@ -10,7 +10,4 @@ struct Score
 	float grade;
 	std::string gradeText;
 	bool isMajor;
-	//----------------------------------------------------
-	void Print();
-	//----------------------------------------------------
 };
