@@ -1,7 +1,7 @@
 #pragma once
+
 #include <iostream>
 #include <string>
-#include "LinkedList_Score.h"
-
+#include "Linkedlist.h"
 
 std::string menu();
