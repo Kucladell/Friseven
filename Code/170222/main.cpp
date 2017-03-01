@@ -38,7 +38,7 @@ int main(void)
 			}
 			case 4: //메뉴 4: 계산 결과 저장
 			{
-				calc.saveHTML(data);
+				calc.saveHTML(data, "result.html");
 			}
 			case 5: //메뉴 4: 종료
 			{

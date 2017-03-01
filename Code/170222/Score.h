@@ -1,6 +1,8 @@
 #pragma once
 
+#include <iomanip>
 #include <iostream>
+#include <fstream>
 #include <string>
 
 struct Score
@@ -18,5 +20,5 @@ public:
 	void input(LinkedList<Score>& data);
 	void output(LinkedList<Score>& data);
 	void calculate(LinkedList<Score>& data);
-	void saveHTML(LinkedList<Score>& data);
+	void saveHTML(LinkedList<Score>& data, std::string fileName);
 };

@@ -154,9 +154,64 @@ void ScoreCalculator::calculate(LinkedList<Score>& data)
 	printLine();
 }
 
-void ScoreCalculator::saveHTML(LinkedList<Score>& data)
+void ScoreCalculator::saveHTML(LinkedList<Score>& data, std::string fileName)
 {
+	std::ofstream file;
+	int credit_all_sum = 0;
+	float grade_all_sum = 0.0f;
+	int credit_major_sum = 0;
+	float grade_major_sum = 0.0f;
 
+	printLine();
+
+	if (data.length() <= 0)
+	{
+		std::cout << "아직 입력된 성적이 없습니다." << std::endl;
+	}
+	else
+	{
+		file.open(fileName.c_str());
+
+		file << "<HTML><HEAD><TITLE>성적표</TITLE></HEAD><BODY>성적표<br><br>";
+
+		for (int i = 1; i < data.length() + 1; i++)
+		{
+			if (data.print(i).isMajor)
+			{
+				file << data.print(i).name + "(" + std::to_string(data.print(i).credit) + "학점, 전공): " + data.print(i).gradeText + "<br>";
+			}
+			else
+			{
+				file << data.print(i).name + "(" + std::to_string(data.print(i).credit) + "학점, 교양): " + data.print(i).gradeText + "<br>";
+			}
+		}
+		file << "<br>";
+
+		for (int i = 1; i < data.length() + 1; i++)
+		{
+			credit_all_sum += data.print(i).credit;
+			grade_all_sum += data.print(i).grade * data.print(i).credit;
+
+			if (data.print(i).isMajor)
+			{
+				credit_major_sum += data.print(i).credit;
+				grade_major_sum += data.print(i).grade * data.print(i).credit;
+			}
+		}
+
+		file << "수강 강의 수: " << data.length() << "<br><br>";
+		file << "총 이수 학점: " << credit_all_sum << "<br>";
+		file << "총 평점평균: " << grade_all_sum / (float)credit_all_sum << "<br><br>";
+		file << "전공 이수 학점: " << credit_major_sum << "<br>";
+		file << "전공 평점평균: " << grade_major_sum / (float)credit_major_sum << "<br>";
+
+		file << "</BODY></HTML>";
+		file.close();
+
+		std::cout << "성적표를 " << fileName << "로 출력했습니다." << std::endl;
+	}
+
+	printLine();
 }
 
 void capitalize(std::string& string)
