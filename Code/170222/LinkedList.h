@@ -8,6 +8,8 @@ struct Node
 {
 	T value;
 	Node* next;
+	void Print() { T.print(); }
+
 };
 
 template<typename T>

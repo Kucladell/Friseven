@@ -4,7 +4,22 @@
 void capitalize(std::string& string);
 inline void printLine();
 
-void ScoreCalculator::input(LinkedList<Score>& data)
+void Score::Print()
+{
+
+	printLine();
+	if (this->isMajor)
+	{
+		std::cout << this->name + "(" + std::to_string(this->credit) + "학점, 전공): " + data.print(i).gradeText << std::endl;
+	}
+	else
+	{
+		std::cout << data.print(i).name + "(" + std::to_string(data.print(i).credit) + "학점, 교양): " + data.print(i).gradeText << std::endl;
+	}
+	printLine();
+}
+
+void Score::input(LinkedList<Score>& data)
 {
 	Node<Score>* addNode = new Node<Score>;
 	std::string gradeText_temp;
@@ -172,7 +187,8 @@ void ScoreCalculator::saveHTML(LinkedList<Score>& data, std::string fileName)
 	{
 		file.open(fileName.c_str());
 
-		file << "<HTML><HEAD><TITLE>성적표</TITLE></HEAD><BODY>성적표<br><br>";
+		file << "<HTML>\
+			<HEAD><TITLE>성적표</TITLE></HEAD><BODY>성적표<br><br>";
 
 		for (int i = 1; i < data.length() + 1; i++)
 		{

@@ -50,8 +50,8 @@ void LinkedList<T>::del(int index)
 	}
 	else
 	{
-		Node<Score>* scanNode = head;
-		Node<Score>* prevNode;
+		Node<T>* scanNode = head;
+		Node<T>* prevNode;
 
 		for (int i = 1; i < index; i++)
 		{
@@ -90,7 +90,7 @@ T LinkedList<T>::print(int index)
 	}
 	else
 	{
-		Node<Score>* scanNode = head;
+		Node<T>* scanNode = head.print();
 
 		for (int i = 1; i < index; i++)
 		{
@@ -100,6 +100,7 @@ T LinkedList<T>::print(int index)
 			}
 
 			scanNode = nextNode;
+			scanNode.print();
 		}
 
 		return scanNode;

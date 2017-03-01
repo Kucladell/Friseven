@@ -5,9 +5,18 @@ std::string menu();
 //main
 int main(void)
 {
-	LinkedList<Score> data;
+	LinkedList<int> data;
+	std::list<Score> data2;
+	data2.push_back();
 	std::string command;
 	bool exit = false;
+	std::string name;
+	int credit;
+	float grade;
+	std::string gradeText;
+	bool isMajor;
+
+
 
 	while (!exit)
 	{
@@ -23,6 +32,9 @@ int main(void)
 		{
 			case 1: //메뉴 1: 성적 입력
 			{
+				Node<Score>* addnode = new Node<Score>();
+				addnode->value = *Score::input("3", 3, 2, "A+", true);
+				data.add(addnode);
 				calc.input(data);
 				break;
 			}
